@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  client:
+    build: ./client
+    restart: always
+    depends_on:
+      - server
+    ports:
+      - "5000:5000"
+  server:
+    build: ./server
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "3001:3000"
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "8001:5432"
+    environment:
+      POSTGRES_PASSWORD: toor

@@ -1,0 +1,80 @@
+openapi: 3.0.1
+info:
+  title: server
+  description: Reservations backend app
+  version: 1.0.0
+servers:
+- url: /api/v1
+tags:
+- name: Reservations
+  description: Simple reservation endpoints
+- name: Specification
+  description: The swagger API specification
+paths:
+  /reservations:
+    get:
+      tags:
+      - Reservations
+      description: Fetch all reservations
+      responses:
+        200:
+          description: Returns all reservations
+          content: {}
+    post:
+      tags:
+      - Reservations
+      description: Create a new reservation
+      requestBody:
+        description: a reservation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservationBody'
+        required: true
+      responses:
+        201:
+          description: Return reservation
+          content: {}
+  /reservations/{id}:
+    delete:
+      tags:
+      - Reservations
+      parameters:
+      - name: id
+        in: path
+        description: The id of the reservation to delete
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Return the reservation deletion result
+          content: {}
+        404:
+          description: Return no reservation was found
+          content: {}
+  /spec:
+    get:
+      tags:
+      - Specification
+      responses:
+        200:
+          description: Return the API specification
+          content: {}
+components:
+  schemas:
+    ReservationBody:
+      title: reservation
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: reservation1
+        store:
+          type: string
+          example: store1
+        status:
+          type: string
+          example: Todo
